@@ -39,3 +39,4 @@ class Router:
             message.backend.send(message)                                
         except AttributeError:                                        
             pass
+        

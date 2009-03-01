@@ -14,7 +14,7 @@ class MockApp(object):
     def __init__(self):
         self.received_message = False
 
-    def receive(self, message):
+    def incoming(self, message):
         self.received_message = True
 
 
@@ -35,7 +35,7 @@ class TestRouter(unittest.TestCase):
         
         # create a message, and send it to the router
         message = rapidsms.Message(self.mock_backend, "5678", "Test Message")
-        router.receive(message)
+        router.dispatch_incoming(message)
         
         # ensure that both apps
         # received the message

@@ -3,7 +3,7 @@
 
 import simplejson
 
-class Config():
+class Config(object):
 
     def __init__(self, path):
         # load the config, and parse it. i chose json because
