@@ -9,9 +9,11 @@ class MockRouter(object):
     def __init__(self):
         self.messages = []
     
-    def receive(self, message):
+    def dispatch_incoming(self, message):   
         self.messages.append(message)
-
+    
+    def dispatch_outgoing(self, message):   
+        pass
 
 class TestBackend(unittest.TestCase):
 
@@ -33,7 +35,9 @@ class TestBackend(unittest.TestCase):
         n = len(self.mock_router.messages)
         self.backend.receive("1234", "Test Message")
         self.assertTrue(len(self.mock_router.messages) > n,
-            "The backend didn't notify it's router of an incoming message")
+            "The backend didn't notify its router of an incoming message")
+        self.assertEqual(self.mock_router.messages[-1].text,"Test Message",
+            "The incoming message received is incorrect")
     
     # things to test:
     #   sending messages (without *really* doing it)

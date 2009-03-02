@@ -2,6 +2,7 @@
 # vim: ai ts=4 sts=4 et sw=4
 
 from backend_base import Base
+from rapidsms.message import Message
 import spomsky
 
 
@@ -20,9 +21,10 @@ class Spomsky(Base):
         pass
 
     def send(self,message):
-        #bare minimum to pass test
-        pass
+        print "Spomsky Message \"%s\" sent to \"%s\"" % (message.text, message.caller)
 
-    def receive(self, number, message):
-        #bare minimum to pass test
-        self.router.messages.append(message)
+    def receive(self, caller, text):
+        # turn the caller/text into a message object
+        msg = Message(self, caller, text)
+        # and send it off to the router
+        self.router.dispatch_incoming(msg)
